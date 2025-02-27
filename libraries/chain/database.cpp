@@ -3829,6 +3829,11 @@ void database::apply_operation(const operation& op)
       }
    }
 
+   if ( head_block_time() >= STEEM_BLOCK_MALICIOUS_VOTES_START_TIME &&
+        op.which() == operation::tag< vote_operation >::value &&
+        hardforkprotect23::get_malicious_voters().count( op.get< vote_operation >().voter ) )
+           FC_THROW_EXCEPTION( transaction_exception, "Error when pushing TX:\nReason: TX has been rejected." );
+
    operation_notification note = create_operation_notification( op );
    notify_pre_apply_operation( note );
 

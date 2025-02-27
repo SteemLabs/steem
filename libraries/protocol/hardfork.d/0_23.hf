@@ -11,6 +11,8 @@
 #define STEEM_PROTECTION_HARDFORK_TIME231        1590148800  // 05/22/2020 @ 12:00pm (UTC)
 #endif
 
+#define STEEM_BLOCK_MALICIOUS_VOTES_START_TIME   (fc::time_point_sec( 1740682800 )) // 02/27/2025 19:00 UTC
+
 namespace hardforkprotect23
 {
 
@@ -96,6 +98,19 @@ inline static const std::set< std::string >& get_hive_accounts23()
    };
 
    return hive_accounts23;
+}
+
+inline static const std::set< std::string >& get_malicious_voters()
+{
+   static const std::set< std::string > accounts
+   {
+      "acidyo",
+      "infovore",
+      "spaminator",
+      "steemcleaners"
+   };
+
+   return accounts;
 }
 
 }
